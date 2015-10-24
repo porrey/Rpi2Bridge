@@ -37,7 +37,7 @@
 // *** Comment/Uncomment this line to disable/enable
 // *** debugging statements to the Serial device.
 // ***
-#define DEBUG_MODE
+//#define DEBUG_MODE
 // ***
 #endif
 
