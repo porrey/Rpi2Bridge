@@ -29,3 +29,39 @@
 //
 // The C# library is available in NuGet; ID = IoT.Arduino
 //
+#ifndef DEFINITIONS_H
+#define DEFINITIONS_H
+
+#ifndef DEBUG_MODE
+// ***
+// *** Comment/Uncomment this line to disable/enable
+// *** debugging statements to the Serial device.
+// ***
+#define DEBUG_MODE
+// ***
+#endif
+
+// ***
+// *** Default address for the Arduino on the i2c bus
+// ***
+#define DEFAULT_ADDRESS 0x04
+
+// ***
+// *** Number of milliseconds to delay in the loop
+// ***
+#define LOOP_DELAY 10
+
+// ***
+// *** If this is set too large there may not be enogh memory
+// ***
+#define MAXIMUM_COMMANDS 20
+
+// ***
+// *** This currently does not need to be larger
+// *** than 4. If you create custom commands,
+// *** increase this value if you will return more
+// *** than 4 bytes for any command.
+// ***
+#define MAX_OUTPUT_BUFFER 4
+
+#endif

@@ -1,7 +1,7 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
 // Version 1.0.0
-// Copyright Â© 2015 Daniel Porrey. All Rights Reserved.
+// Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
 // This file is part of the RPi2 Bridge project.
@@ -29,3 +29,64 @@
 //
 // The C# library is available in NuGet; ID = IoT.Arduino
 //
+
+#include <Arduino.h>
+#include "Rpi2Bridge.h"
+
+#ifndef BREATHE_LED_COMMANDS_H
+#define BREATHE_LED_COMMANDS_H
+
+class BreatheLedInternal
+{	
+	public:
+		// ***
+		// *** Sets whether the effect is enabled or not.
+		// ***
+		bool enabled;
+		
+		// ***
+		// *** The pin on which the LED is connected.
+		// ***
+		byte pin;
+		
+		// ***
+		// *** Current pin output.
+		// ***
+		byte currentValue;
+		
+		// ***
+		// *** How many steps to fade the LED by
+		// ***
+		byte step;
+		
+		// ***
+		// *** How many steps to fade the LED by
+		// ***
+		byte stepDirection;		
+		
+		// ***
+		// *** The amount of delay between changes
+		// ***
+		byte rate;
+		
+		// ***
+		// *** The value that determines the oiff state of the LED
+		// ***
+		byte offValue;
+		
+		// ***
+		// *** Initializes the instance
+		// ***
+		void begin();
+		
+		// ***
+		// *** Callbacks
+		// ***
+		static bool loop();		
+		static void enable(int bufferSize, byte buffer[]);
+		static void disable(int bufferSize, byte buffer[]);
+};
+
+extern BreatheLedInternal BreatheLed;
+
+#endif

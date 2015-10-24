@@ -1,7 +1,7 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
 // Version 1.0.0
-// Copyright Â© 2015 Daniel Porrey. All Rights Reserved.
+// Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
 // This file is part of the RPi2 Bridge project.
@@ -29,3 +29,25 @@
 //
 // The C# library is available in NuGet; ID = IoT.Arduino
 //
+
+#include <Arduino.h>
+
+#ifndef BYTE_CONVERTER_H
+#define BYTE_CONVERTER_H
+
+union ufloat
+{
+    byte bytes[4];
+    float value;
+};
+
+class ByteConverterInternal
+{
+	public:
+		static unsigned int bytesToUint(byte lower, byte upper);	
+		static unsigned long bytesToUlong(byte lower1, byte lower2, byte upper1, byte upper2);
+		static void GetBytes(float value, byte data[]);
+};
+
+extern ByteConverterInternal Converter;
+#endif

@@ -1,7 +1,7 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
 // Version 1.0.0
-// Copyright Â© 2015 Daniel Porrey. All Rights Reserved.
+// Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
 // This file is part of the RPi2 Bridge project.
@@ -29,3 +29,65 @@
 //
 // The C# library is available in NuGet; ID = IoT.Arduino
 //
+
+#include <Arduino.h>
+#include "Rpi2Bridge.h"
+#include "ByteConverter.h"
+
+#ifndef PULSE_PIN_COMMANDS_H
+#define PULSE_PIN_COMMANDS_H
+
+class PulsePinInternal
+{	
+	public:
+		// ***
+		// *** Sets whether the effect is enabled or not.
+		// ***
+		bool enabled;
+		
+		// ***
+		// *** The pin on which the LED is connected.
+		// ***
+		byte pin;
+		
+		// ***
+		// *** Current pin output value
+		// ***
+		byte currentValue;
+
+		// ***
+		// *** The "off" value for the pin
+		// ***
+		byte offValue;
+		
+		// ***
+		// *** How long the pin is on
+		// ***
+		unsigned long onDuration;
+				
+		// ***
+		// *** How long the pin is off
+		// ***
+		unsigned long offDuration;
+		
+		// ***
+		// *** The "time" of the last transition
+		// ***
+		unsigned long lastTransition;
+		
+		// ***
+		// *** Initializes the instance
+		// ***
+		void begin();
+		
+		// ***
+		// *** Callbacks
+		// ***
+		static bool loop();		
+		static void enable(int bufferSize, byte buffer[]);
+		static void disable(int bufferSize, byte buffer[]);
+};
+
+extern PulsePinInternal PulsePin;
+
+#endif

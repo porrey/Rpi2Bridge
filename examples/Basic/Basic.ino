@@ -21,7 +21,7 @@
 // see http://www.gnu.org/licenses/.
 // ***********************************************************************
 //
-// This is a partner library for the C# library for communicating
+// This is a partner sketch for the C# library for communicating
 // to the Arduino via the i2c bus from Windows 10 IoT Core on the
 // Raspberry Pi 2.
 //
@@ -29,3 +29,37 @@
 //
 // The C# library is available in NuGet; ID = IoT.Arduino
 //
+
+#include <Rpi2Bridge.h>
+#include <BasicCommands.h>
+#include <Wire.h>
+
+void setup() 
+{
+	// ***
+	// *** Start serial for output
+	// ***
+	Serial.begin(115200);
+
+	// ***
+	// *** Start the i2c bridge to receive commands
+	// *** from the Raspberry Pi 2 C# library.
+	// ***
+	Serial.println("Initializing bridge...");
+	Rpi2Bridge.begin();
+	
+	// ***
+	// *** Map the basic commands
+	// ***
+	BasicCommands.begin();
+
+	// ***
+	// *** Show ready
+	// ***
+	Serial.println("Ready.");
+}
+
+void loop()
+{
+	Rpi2Bridge.loop();
+}

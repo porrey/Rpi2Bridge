@@ -1,7 +1,7 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
 // Version 1.0.0
-// Copyright Â© 2015 Daniel Porrey. All Rights Reserved.
+// Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
 // This file is part of the RPi2 Bridge project.
@@ -29,3 +29,38 @@
 //
 // The C# library is available in NuGet; ID = IoT.Arduino
 //
+
+#include <Arduino.h>
+#include "Rpi2Bridge.h"
+#include "ByteConverter.h"
+
+#ifndef BASIC_COMMANDS_H
+#define BASIC_COMMANDS_H
+
+class BasicCommandsInternal
+{
+	public:
+		// ***
+		// *** Initializes the instance
+		// ***
+		void begin();
+		
+		// ***
+		// *** Callbacks
+		// ***
+		static void pinModeCommand(int bufferSize, byte buffer[]);
+		static void digitalReadCommand(int bufferSize, byte buffer[]);
+		static void digitalWriteCommand(int bufferSize, byte buffer[]);
+		static void analogReadCommand(int bufferSize, byte buffer[]);
+		static void analogWriteCommand(int bufferSize, byte buffer[]);
+		static void toneCommand1(int bufferSize, byte buffer[]);
+		static void toneCommand2(int bufferSize, byte buffer[]);
+		static void noToneCommand(int bufferSize, byte buffer[]);
+		static void shiftOutCommand(int bufferSize, byte buffer[]);
+		static void interruptsCommand(int bufferSize, byte buffer[]);
+		static void noInterruptsCommand(int bufferSize, byte buffer[]);		
+};
+
+extern BasicCommandsInternal BasicCommands;
+
+#endif
