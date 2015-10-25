@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.0
+// Version 1.0.1
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -41,57 +41,62 @@ void BasicCommandsInternal::begin()
 	#ifdef DEBUG_MODE 
 	Serial.print("\tpinMode(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(0, 4, BasicCommandsInternal::pinModeCommand, NULL);
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 0, 4, BasicCommandsInternal::pinModeCommand, NULL);
 	
 	#ifdef DEBUG_MODE 
 	Serial.print("\tdigitalRead(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(1, 3, BasicCommandsInternal::digitalReadCommand, NULL);
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 1, 3, BasicCommandsInternal::digitalReadCommand, NULL);
 	
 	#ifdef DEBUG_MODE 
 	Serial.print("\tdigitalWrite(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(2, 4, BasicCommandsInternal::digitalWriteCommand, NULL);
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 2, 4, BasicCommandsInternal::digitalWriteCommand, NULL);
 	
 	#ifdef DEBUG_MODE 
 	Serial.print("\tanalogRead(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(3, 3, BasicCommandsInternal::analogReadCommand, NULL);
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 3, 3, BasicCommandsInternal::analogReadCommand, NULL);
 	
 	#ifdef DEBUG_MODE 
 	Serial.print("\tanalogWrite(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(4, 4, BasicCommandsInternal::analogWriteCommand, NULL);
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 4, 4, BasicCommandsInternal::analogWriteCommand, NULL);
+	
+	#ifdef DEBUG_MODE 
+	Serial.print("\tanalogReference(): "); 
+	#endif
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 5, 3, BasicCommandsInternal::analogReferenceCommand, NULL);
 	
 	#ifdef DEBUG_MODE 
 	Serial.print("\ttone(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(5, 9, BasicCommandsInternal::toneCommand1, NULL);
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 6, 9, BasicCommandsInternal::toneCommand1, NULL);
 	
 	#ifdef DEBUG_MODE 
 	Serial.print("\ttone(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(6, 5, BasicCommandsInternal::toneCommand2, NULL);
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 7, 5, BasicCommandsInternal::toneCommand2, NULL);
 	
 	#ifdef DEBUG_MODE 
 	Serial.print("\tnoTone(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(7, 3, BasicCommandsInternal::noToneCommand, NULL);
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 8, 3, BasicCommandsInternal::noToneCommand, NULL);
 	
 	#ifdef DEBUG_MODE 
 	Serial.print("\tshiftOut(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(8, 6, BasicCommandsInternal::shiftOutCommand, NULL);
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 9, 6, BasicCommandsInternal::shiftOutCommand, NULL);
 	
 	#ifdef DEBUG_MODE 
 	Serial.print("\tinterrupts(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(9, 2, BasicCommandsInternal::interruptsCommand, NULL);
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 10, 2, BasicCommandsInternal::interruptsCommand, NULL);
 	
 	#ifdef DEBUG_MODE 
 	Serial.print("\tnoInterrupts(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(10, 2, BasicCommandsInternal::noInterruptsCommand, NULL);
+	Rpi2Bridge.registerCommand(STARTING_REGISTER_ID + 11, 2, BasicCommandsInternal::noInterruptsCommand, NULL);
 	
 	#ifdef DEBUG_MODE 
 	Serial.println("\tRegistration completed."); 
@@ -208,6 +213,46 @@ void BasicCommandsInternal::analogReadCommand(int bufferSize, byte buffer[])
 	// *** Set the result
 	// ***
 	Rpi2Bridge.setResult(RESULT_SUCCESS, value);
+}
+
+void BasicCommandsInternal::analogReferenceCommand(int bufferSize, byte buffer[]);
+{
+	#ifdef DEBUG_MODE
+	// ***
+	// *** Digital write
+	// ***
+	Serial.print("\tanalogReference(type = ");
+
+	if (buffer[2] == DEFAULT)
+	{
+		Serial.println("DEFAULT)");
+	}
+	else if (buffer[2] == INTERNAL)
+	{
+		Serial.println("INTERNAL)");
+	}
+	else if (buffer[2] == INTERNAL1V1)
+	{
+		Serial.println("INTERNAL1V1)");
+	}
+	else if (buffer[2] == INTERNAL2V56)
+	{
+		Serial.println("INTERNAL2V56)");
+	}
+	else if (buffer[2] == EXTERNAL)
+	{
+		Serial.println("EXTERNAL)");
+	}
+	#endif
+
+	analogReference(buffer[2]);
+
+	// ***
+	// *** Set the result
+	// ***
+	Rpi2Bridge.setResult(RESULT_SUCCESS);
+	
+	
 }
 
 void BasicCommandsInternal::analogWriteCommand(int bufferSize, byte buffer[])

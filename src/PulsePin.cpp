@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.0
+// Version 1.0.1
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -43,12 +43,12 @@ void PulsePinInternal::begin()
 	#ifdef DEBUG_MODE 
 	Serial.print("\tPulsePin(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(13, 12, PulsePinInternal::enable, PulsePinInternal::loop);
+	Rpi2Bridge.registerCommand(PULSE_STARTING_REGISTER_ID + 0, 12, PulsePinInternal::enable, PulsePinInternal::loop);
 	
 	#ifdef DEBUG_MODE
 	Serial.print("\tnoPulsePin(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(14, 3, PulsePinInternal::disable, NULL);	
+	Rpi2Bridge.registerCommand(PULSE_STARTING_REGISTER_ID + 1, 3, PulsePinInternal::disable, NULL);	
 }
 
 bool PulsePinInternal::loop()
