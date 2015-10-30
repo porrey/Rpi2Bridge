@@ -1,10 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-<<<<<<< HEAD
 // Version 1.0.2
-=======
-// Version 1.0.1
->>>>>>> origin/master
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -219,11 +215,7 @@ void BasicCommandsInternal::analogReadCommand(int bufferSize, byte buffer[])
 	Rpi2Bridge.setResult(RESULT_SUCCESS, value);
 }
 
-<<<<<<< HEAD
 void BasicCommandsInternal::analogReferenceCommand(int bufferSize, byte buffer[])
-=======
-void BasicCommandsInternal::analogReferenceCommand(int bufferSize, byte buffer[]);
->>>>>>> origin/master
 {
 	#ifdef DEBUG_MODE
 	// ***

@@ -1,10 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-<<<<<<< HEAD
 // Version 1.0.2
-=======
-// Version 1.0.1
->>>>>>> origin/master
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -42,11 +38,7 @@
 #ifndef PULSE_PIN_COMMANDS_H
 #define PULSE_PIN_COMMANDS_H
 
-<<<<<<< HEAD
 #define PULSE_STARTING_REGISTER_ID (STARTING_REGISTER_ID + 14)
-=======
-#define PULSE_STARTING_REGISTER_ID 14
->>>>>>> origin/master
 
 class PulsePinInternal
 {	
