@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.0
+// Version 1.0.2
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -33,9 +33,12 @@
 #include <Arduino.h>
 #include "Rpi2Bridge.h"
 #include "ByteConverter.h"
+#include "Definitions.h"
 
 #ifndef BASIC_COMMANDS_H
 #define BASIC_COMMANDS_H
+
+#define BASIC_STARTING_REGISTER_ID (STARTING_REGISTER_ID + 0)
 
 class BasicCommandsInternal
 {
@@ -53,6 +56,7 @@ class BasicCommandsInternal
 		static void digitalWriteCommand(int bufferSize, byte buffer[]);
 		static void analogReadCommand(int bufferSize, byte buffer[]);
 		static void analogWriteCommand(int bufferSize, byte buffer[]);
+		static void analogReferenceCommand(int bufferSize, byte buffer[]);
 		static void toneCommand1(int bufferSize, byte buffer[]);
 		static void toneCommand2(int bufferSize, byte buffer[]);
 		static void noToneCommand(int bufferSize, byte buffer[]);

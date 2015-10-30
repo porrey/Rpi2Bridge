@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.0
+// Version 1.0.2
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -32,9 +32,12 @@
 
 #include <Arduino.h>
 #include "Rpi2Bridge.h"
+#include "Definitions.h"
 
 #ifndef BREATHE_LED_COMMANDS_H
 #define BREATHE_LED_COMMANDS_H
+
+#define BREATH_STARTING_REGISTER_ID (STARTING_REGISTER_ID + 12)
 
 class BreatheLedInternal
 {	

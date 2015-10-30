@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.0
+// Version 1.0.1
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -48,11 +48,6 @@
 #define RESULT_MAPPING_MISMATCH		  4
 #define RESULT_MISSING_CALLBACK		  5
 #define RESULT_ID_TOO_LARGE			  6
-
-// ***
-// *** Custom Register ID's start here
-// ***
-#define FIRST_CUSTOM_REGISTER_ID 15
 
 // ***
 // ***

@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.0
+// Version 1.0.1
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -43,12 +43,12 @@ void BreatheLedInternal::begin()
 	#ifdef DEBUG_MODE 
 	Serial.print("\tbreatheLed(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(11, 6, BreatheLedInternal::enable, BreatheLedInternal::loop);
+	Rpi2Bridge.registerCommand(BREATH_STARTING_REGISTER_ID + 0, 6, BreatheLedInternal::enable, BreatheLedInternal::loop);
 	
 	#ifdef DEBUG_MODE
 	Serial.print("\tnoBreatheLed(): "); 
 	#endif
-	Rpi2Bridge.registerCommand(12, 3, BreatheLedInternal::disable, NULL);	
+	Rpi2Bridge.registerCommand(BREATH_STARTING_REGISTER_ID + 1, 3, BreatheLedInternal::disable, NULL);	
 }
 
 bool BreatheLedInternal::loop()
