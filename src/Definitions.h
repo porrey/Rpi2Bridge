@@ -1,6 +1,10 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
+<<<<<<< HEAD
 // Version 1.0.2
+=======
+// Version 1.0.1
+>>>>>>> origin/master
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -65,11 +69,14 @@
 #define MAX_OUTPUT_BUFFER 4
 
 // ***
+<<<<<<< HEAD
 // *** First register ID
 // ***
 #define STARTING_REGISTER_ID 0
 
 // ***
+=======
+>>>>>>> origin/master
 // *** Custom Register ID's start here
 // ***
 #define FIRST_CUSTOM_REGISTER_ID 16

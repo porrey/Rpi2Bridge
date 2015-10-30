@@ -1,6 +1,10 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
+<<<<<<< HEAD
 // Version 1.0.2
+=======
+// Version 1.0.1
+>>>>>>> origin/master
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -38,7 +42,11 @@
 #ifndef BASIC_COMMANDS_H
 #define BASIC_COMMANDS_H
 
+<<<<<<< HEAD
 #define BASIC_STARTING_REGISTER_ID (STARTING_REGISTER_ID + 0)
+=======
+#define BASIC_STARTING_REGISTER_ID 0
+>>>>>>> origin/master
 
 class BasicCommandsInternal
 {
