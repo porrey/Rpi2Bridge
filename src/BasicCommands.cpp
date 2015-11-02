@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.2
+// Version 1.0.3
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -280,12 +280,12 @@ void BasicCommandsInternal::toneCommand1(int bufferSize, byte buffer[])
 	// ***
 	// *** Get the frequency
 	// ***
-	unsigned int frequency = Converter.bytesToUint(buffer[3], buffer[4]);
+	unsigned int frequency = ByteConverter::bytesToUint(buffer[3], buffer[4]);
 
 	// ***
 	// *** Get the duration
 	// ***
-	unsigned long duration = Converter.bytesToUlong(buffer[5], buffer[6], buffer[7], buffer[8]);
+	unsigned long duration = ByteConverter::bytesToUlong(buffer[5], buffer[6], buffer[7], buffer[8]);
 
 	#ifdef DEBUG_MODE
 	// ***
@@ -313,7 +313,7 @@ void BasicCommandsInternal::toneCommand2(int bufferSize, byte buffer[])
 	// ***
 	// *** Get the frequency
 	// ***
-	unsigned int frequency = Converter.bytesToUint(buffer[3], buffer[4]);
+	unsigned int frequency = ByteConverter::bytesToUint(buffer[3], buffer[4]);
 
 	#ifdef DEBUG_MODE
 	// ***

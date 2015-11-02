@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.0
+// Version 1.0.1
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -32,7 +32,7 @@
 
 #include "ByteConverter.h"
 
-void ByteConverterInternal::GetBytes(float value, byte data[])
+void ByteConverter::GetBytes(float value, byte data[])
 {
 	ufloat uvalue = ufloat();  
 	uvalue.value = value;
@@ -43,7 +43,7 @@ void ByteConverterInternal::GetBytes(float value, byte data[])
 	data[3] = uvalue.bytes[3];
 }
 
-unsigned int ByteConverterInternal::bytesToUint(byte lower, byte upper)
+unsigned int ByteConverter::bytesToUint(byte lower, byte upper)
 {
 	unsigned int returnValue = 0;
 
@@ -58,7 +58,7 @@ unsigned int ByteConverterInternal::bytesToUint(byte lower, byte upper)
 	return returnValue;
 }
 
-unsigned long ByteConverterInternal::bytesToUlong(byte lower1, byte lower2, byte upper1, byte upper2)
+unsigned long ByteConverter::bytesToUlong(byte lower1, byte lower2, byte upper1, byte upper2)
 {
 	unsigned long returnValue = 0;
 

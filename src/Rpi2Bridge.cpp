@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.0
+// Version 1.0.1
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -126,7 +126,7 @@ bool Rpi2BridgeInternal::registerCommand(unsigned int id, unsigned int expectedB
 			returnValue = true;
 			
 			#ifdef DEBUG_MODE
-			Serial.print("Command with Register ID = ");
+			Serial.print("\tCommand with Register ID = ");
 			Serial.print(id);
 			Serial.println(" was successfully mapped.");
 			#endif
@@ -134,7 +134,7 @@ bool Rpi2BridgeInternal::registerCommand(unsigned int id, unsigned int expectedB
 		else
 		{
 			#ifdef DEBUG_MODE
-			Serial.print("Command with Register ID = ");
+			Serial.print("\tCommand with Register ID = ");
 			Serial.print(id);
 			Serial.println(" failed to be mapped. A command with this ID is already mapped.");
 			#endif
@@ -145,7 +145,7 @@ bool Rpi2BridgeInternal::registerCommand(unsigned int id, unsigned int expectedB
 	else
 	{
 		#ifdef DEBUG_MODE
-		Serial.print("Command with Register ID = ");
+		Serial.print("\tCommand with Register ID = ");
 		Serial.print(id);
 		Serial.println(" failed to be mapped. Maximum number of commands have already been mapped.");
 		#endif
@@ -248,13 +248,13 @@ void Rpi2BridgeInternal::setResult(byte result, unsigned int value)
 }
 
 void Rpi2BridgeInternal::setResultDirect(byte result[], int byteCount)
-{
+{	
 	this->resetOutputBuffer();
-	
+
 	#ifdef DEBUG_MODE
-	Serial.print("\tsetResult(byte[");	
+	Serial.print("\tsetResultDirect(byte[");	
 	#endif
-	
+
 	for(int i = 0; i < byteCount; ++i)
 	{
 		#ifdef DEBUG_MODE
@@ -291,7 +291,7 @@ void Rpi2BridgeInternal::onReceive(int byteCount)
 	
 	if (readCount == byteCount)
 	{
-		unsigned int registerId = Converter.bytesToUint(buffer[0], buffer[1]);
+		unsigned int registerId = ByteConverter::bytesToUint(buffer[0], buffer[1]);
 		
 		#ifdef DEBUG_MODE
 		Serial.print("\tRegister ID =  ");
@@ -443,6 +443,10 @@ void Rpi2BridgeInternal::onRequest()
 
 void Rpi2BridgeInternal::resetOutputBuffer()
 {
+	#ifdef DEBUG_MODE
+	Serial.println("\tresetOutputBuffer()");	
+	#endif
+
 	for (int i = 0; i < Rpi2Bridge.bufferLength; i++)
 	{
 		Rpi2Bridge.outBuffer[i]	= 255;

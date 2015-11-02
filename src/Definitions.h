@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.2
+// Version 1.0.3
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -39,6 +39,24 @@
 // ***
 //#define DEBUG_MODE
 // ***
+#endif
+
+#ifndef INTERNAL1V1
+// ***
+// *** If not using a Mega then this will get defined. Since
+// *** it is only supproted on the Mega it is mapped back
+// *** INTERNAL.
+// ***
+#define INTERNAL1V1 INTERNAL
+#endif
+
+#ifndef INTERNAL2V56
+// ***
+// *** If not using a Mega then this will get defined. Since
+// *** it is only supproted on the Mega it is mapped back
+// *** INTERNAL.
+// ***
+#define INTERNAL2V56 INTERNAL
 #endif
 
 // ***

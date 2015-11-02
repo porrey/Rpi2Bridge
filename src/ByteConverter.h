@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.0
+// Version 1.0.1
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -41,13 +41,11 @@ union ufloat
     float value;
 };
 
-class ByteConverterInternal
+class ByteConverter
 {
 	public:
 		static unsigned int bytesToUint(byte lower, byte upper);	
 		static unsigned long bytesToUlong(byte lower1, byte lower2, byte upper1, byte upper2);
 		static void GetBytes(float value, byte data[]);
 };
-
-extern ByteConverterInternal Converter;
 #endif

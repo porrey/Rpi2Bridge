@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.1
+// Version 1.0.2
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -83,12 +83,12 @@ void PulsePinInternal::enable(int bufferSize, byte buffer[])
 	// ***
 	// *** Get the on duration
 	// ***
-	PulsePin.onDuration = Converter.bytesToUlong(buffer[4], buffer[5], buffer[6], buffer[7]);
+	PulsePin.onDuration = ByteConverter::bytesToUlong(buffer[4], buffer[5], buffer[6], buffer[7]);
 	
 	// ***
 	// *** Get the off duration
 	// ***
-	PulsePin.offDuration = Converter.bytesToUlong(buffer[8], buffer[9], buffer[10], buffer[11]);
+	PulsePin.offDuration = ByteConverter::bytesToUlong(buffer[8], buffer[9], buffer[10], buffer[11]);
 		
 	#ifdef DEBUG_MODE
 	// ***

@@ -1,6 +1,6 @@
 // Raspberry Pi 2 to Arduino Bridge
 // written by Daniel Porrey
-// Version 1.0.1
+// Version 1.0.0
 // Copyright © 2015 Daniel Porrey. All Rights Reserved.
 //
 // ***********************************************************************
@@ -34,24 +34,26 @@
 #include <Wire.h>
 
 // ***
-// *** Download and install the Adafruit library for the Dht
-// *** https://github.com/adafruit/DHT-sensor-library/blob/master/DHT.cpp
+// *** Download and install the DHT library from
+// *** http://playground.arduino.cc//Main/DHTLib or
+// *** https://github.com/RobTillaart/Arduino/tree/master/libraries/DHTlib
 // ***
-#include <DHT.h>
+#include <dht.h>
 
 // ***
 // *** The pin on which the DHT is connected
 // ***
-#define DHTPIN 2
+#define DHT11_PIN 2
 
 // ***
-// *** Initialize DHT sensor. Specify the type as one
-// *** of the following:
-// *** DHT11
-// *** DHT22 (DHT22, AM2302, AM2321)
-// *** DHT21 (DHT21, AM2301)
+// *** Create the DHT11 instance
 // ***
-DHT _dht(DHTPIN, DHT22);
+dht _dht;
+
+// ***
+// *** Result of last call
+// ***
+int _result = 0;
 
 // ***
 // *** C# Code to call this command:
@@ -91,17 +93,18 @@ DHT _dht(DHTPIN, DHT22);
       // ***
       // *** Map your custom errors
       // ***
-      switch(result[0])
+      switch (result[0])
       {
         case 1:
-          // Add code...
-          break;
+          throw new ArduinoException("DHT11 checksum error.");
         case 2:
-          // Add code...
-          break;
-        default:
-          // Add code...
-          break;
+          throw new ArduinoException("DHT11 timeout.");
+        case 3:
+          throw new ArduinoException("DHT11 failed to connect.");
+        case 4:
+          throw new ArduinoException("DHT11 failed to acknowledge request.");
+        case 5:
+          throw new ArduinoException("DHT11 failed to acknowledge request.");
       }
     }
 */
@@ -131,30 +134,32 @@ void setup()
   // *** FIRST_CUSTOM_REGISTER_ID + 2
   // *** FIRST_CUSTOM_REGISTER_ID + n
   // ***
-  Rpi2Bridge.registerCommand(FIRST_CUSTOM_REGISTER_ID + 0, 2, getDhtReading, NULL);
-
-  // ***
-  // *** Initialize the DHT
-  // ***
-#ifdef DEBUG_MODE
-  Serial.println("Initializing DHT...");
-#endif
-  _dht.begin();
+  Rpi2Bridge.registerCommand(FIRST_CUSTOM_REGISTER_ID + 0, 2, respondToRequest, getDhtReading);
 
 #ifdef DEBUG_MODE
   // ***
   // *** Display the sensor readign so we know
   // *** the sensor is working.
   // ***
-  Serial.print("\tCurrent humidity is ");
-  Serial.println(_dht.readHumidity(true));
-  Serial.print("\tCurrent temperature is ");
-  Serial.println(_dht.readTemperature(false, true));
+  Serial.println("\nChecking DHT11...");
+  int result = _dht.read11(DHT11_PIN);
+
+  if (result == DHTLIB_OK)
+  {
+    Serial.print("\tCurrent humidity is ");
+    Serial.println(_dht.humidity, 1);
+    Serial.print("\tCurrent temperature is ");
+    Serial.println(_dht.temperature, 1);
+  }
+  else
+  {
+    Serial.println("Failed to read from DHT11!");
+  }
 
   // ***
   // *** Show ready
   // ***
-  Serial.println("Ready. Waiting for commands...");
+  Serial.println("\nReady. Waiting for commands...");
 #endif
 }
 
@@ -164,10 +169,35 @@ void loop()
 }
 
 // ***
+// *** This function is registered as the
+// *** loop callback for this command.
+// ***
+bool getDhtReading()
+{
+  // ***
+  // *** Read the sensor every second
+  // ***
+  _dht.humidity = 0;
+  _dht.temperature = 0;
+  _result = _dht.read11(DHT11_PIN);
+
+  // ***
+  // *** Wait...
+  // ***
+  delay(1000);
+
+  // ***
+  // *** Return true to let the library know
+  // *** we are processing in the loop.
+  // ***
+  return true;
+}
+
+// ***
 // *** Called when the client (from C#) requests
 // *** a reading from the DHT sensor.
 // ***
-void getDhtReading(int bufferSize, byte buffer[])
+void respondToRequest(int bufferSize, byte buffer[])
 {
 #ifdef DEBUG_MODE
   Serial.println("\tgetDhtReading()");
@@ -179,50 +209,51 @@ void getDhtReading(int bufferSize, byte buffer[])
   // ***
   byte writeBuffer[9];
 
-  _dht.read();
-
   // ***
-  // *** Read the humidity and convert it to a
-  // *** byte array
+  // *** Show the result of the last
+  // *** reading attempt
   // ***
-  byte humidityBytes[4];
-  float humidityValue = _dht.readHumidity();
-  ByteConverter::GetBytes(humidityValue, humidityBytes);
 #ifdef DEBUG_MODE
-  Serial.print("\tCurrent humidity is ");
-  Serial.println(humidityValue);
+  Serial.print("\tLast Sensor Result = ");
+  Serial.println(_result);
 #endif
 
   // ***
-  // *** Read temperature as Celsius (the default) and
-  // *** convert it to a byte array
+  // *** Get the humidity and convert it to a
+  // *** byte array.
+  // ***
+  byte humidityBytes[4];
+  ByteConverter::GetBytes(_dht.humidity, humidityBytes);
+#ifdef DEBUG_MODE
+  Serial.print("\tCurrent humidity is ");
+  Serial.println(_dht.humidity);
+#endif
+
+  // ***
+  // *** Get the temperature and convert it to a
+  // *** byte array.
   // ***
   byte temperatureBytes[4];
-  float temperatureValue = _dht.readTemperature();
-  ByteConverter::GetBytes(temperatureValue, temperatureBytes);
+  ByteConverter::GetBytes(_dht.temperature, temperatureBytes);
 #ifdef DEBUG_MODE
   Serial.print("\tCurrent temperature is ");
-  Serial.println(temperatureValue);
+  Serial.println(_dht.temperature);
 #endif
 
   // ***
   // *** The first byte is the result code (0 always indicates success).
   // *** This is an example of how to send multiple result codes.
   // ***
-  if (!isnan(humidityValue) && !isnan(temperatureValue))
-  {
-    // ***
-    // *** Success
-    // ***
-    writeBuffer[0] = 0;
-  }
-  else if (isnan(humidityValue) || isnan(temperatureValue))
-  {
-    // ***
-    // *** Failed to read from DHT sensor!
-    // ***
-    writeBuffer[0] = 1;
-  }
+  // *** The resulting values of the Dht library call are:
+  // ***
+  // *** DHTLIB_OK                    0
+  // *** DHTLIB_ERROR_CHECKSUM       -1
+  // *** DHTLIB_ERROR_TIMEOUT        -2
+  // *** DHTLIB_ERROR_CONNECT        -3
+  // *** DHTLIB_ERROR_ACK_L          -4
+  // *** DHTLIB_ERROR_ACK_H          -5
+  // ***
+  writeBuffer[0] = abs(_result);
 
   // ***
   // *** Write the humidity in the
