@@ -6,55 +6,55 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-CommandCallback		KEYWORD1
-LoopCallback		KEYWORD1
+CommandCallback	KEYWORD1
+LoopCallback	KEYWORD1
 
-Rpi2Bridge			KEYWORD1
-BasicCommands		KEYWORD1
-PulsePin			KEYWORD1
-BreatheLed			KEYWORD1
+Rpi2Bridge	KEYWORD1
+BasicCommands	KEYWORD1
+PulsePin	KEYWORD1
+BreatheLed	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-begin				KEYWORD2
-registerMap			KEYWORD2
-registerCommand		KEYWORD2
+begin	KEYWORD2
+registerMap	KEYWORD2
+registerCommand	KEYWORD2
 unregisterCommand	KEYWORD2
 onCommandRequest	KEYWORD2
-onDataRequest		KEYWORD2
+onDataRequest	KEYWORD2
 
-pinModeCommand		KEYWORD2
+pinModeCommand	KEYWORD2
 digitalReadCommand	KEYWORD2
 digitalWriteCommand	KEYWORD2
 analogReadCommand	KEYWORD2
 analogWriteCommand	KEYWORD2
-toneCommand1		KEYWORD2
-toneCommand2		KEYWORD2
-noToneCommand		KEYWORD2
-shiftOutCommand		KEYWORD2
+toneCommand1	KEYWORD2
+toneCommand2	KEYWORD2
+noToneCommand	KEYWORD2
+shiftOutCommand	KEYWORD2
 interruptsCommand	KEYWORD2
 noInterruptsCommand	KEYWORD2
 
-loop				KEYWORD2
-enable				KEYWORD2
-disable				KEYWORD2
-enabled				KEYWORD2
-pin					KEYWORD2
-currentValue		KEYWORD2
-step				KEYWORD2
-stepDirection		KEYWORD2
-rate				KEYWORD2
-offValue			KEYWORD2
+loop	KEYWORD2
+enable	KEYWORD2
+disable	KEYWORD2
+enabled	KEYWORD2
+pin	KEYWORD2
+currentValue	KEYWORD2
+step	KEYWORD2
+stepDirection	KEYWORD2
+rate	KEYWORD2
+offValue	KEYWORD2
 
-onDuration			KEYWORD2
-offDuration			KEYWORD2
-lastTransition		KEYWORD2
+onDuration	KEYWORD2
+offDuration	KEYWORD2
+lastTransition	KEYWORD2
 
-bytesToUint			KEYWORD2
-bytesToUlong		KEYWORD2
-getBytes			KEYWORD2
+bytesToUint	KEYWORD2
+bytesToUlong	KEYWORD2
+getBytes	KEYWORD2
 
 
 #######################################
@@ -67,8 +67,8 @@ getBytes			KEYWORD2
 # Constants (LITERAL1)
 #######################################
 
-DEBUG_MODE			LITERAL1
-DEFAULT_ADDRESS		LITERAL1
-LOOP_DELAY			LITERAL1
+DEBUG_MODE	LITERAL1
+DEFAULT_ADDRESS	LITERAL1
+LOOP_DELAY	LITERAL1
 MAXIMUM_COMMANDS	LITERAL1
 MAX_OUTPUT_BUFFER	LITERAL1
